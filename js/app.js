@@ -1,16 +1,14 @@
-var Cat = function() {
-  var self = this;
+var Cat = function(data) {
+  this.clickCount = ko.observable(data.clickCount);
+  this.name = ko.observable(data.name);
+  this.imgSrc = ko.observable(data.imgSrc);
+  this.imgAttribution = ko.observable(data.imgAttribution);
+  this.catLevel = ko.observable(data.catLevel);
+  this.nicknames = ko.observableArray(data.nicknames);
 
-  self.clickCount = ko.observable(0);
-  self.name = ko.observable('Tabby');
-  self.imgSrc = ko.observable('img/434164568_fea0ad4013_z.jpg');
-  self.imgAttribution = ko.observable('https://www.flickr.com/photos/big');
-  self.catLevel = ko.observable('Newborn');
-  self.nicknames = ko.observableArray(['Tabs', 'T-man', 'Taboo']);
-
-  self.catLevel = ko.computed(function(){
+  this.catLevel = ko.computed(function(){
     var title;
-    var clicks = self.clickCount();
+    var clicks = this.clickCount();
     if(clicks <5){
       return "Newborn";
     }
@@ -40,10 +38,19 @@ var Cat = function() {
 
 
 var ViewModel = function() {
-   this.currentCat = ko.observable(new Cat());
+  var self = this;
+
+   this.currentCat = ko.observable(new Cat({
+     clickCount: 0,
+     name: 'Tabby',
+     imgSrc: 'img/434164568_fea0ad4013_z.jpg',
+     imgAttribution: 'https://www.flickr.com/photos/big',
+     catLevel: 'Newborn',
+     nicknames: ['Tabs', 'T-man', 'Taboo']
+   }));
 
   this.incrementClickCounter = function() {
-    this.clickCount(this.clickCount()+1);
+    self.currentCat().clickCount(self.currentCat().clickCount()+1);
   };
 
 }
