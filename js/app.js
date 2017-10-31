@@ -6,6 +6,11 @@ var ViewModel = function() {
   self.imgSrc = ko.observable('img/434164568_fea0ad4013_z.jpg');
   self.imgAttribution = ko.observable('https://www.flickr.com/photos/big');
   self.catLevel = ko.observable('Newborn');
+  self.nicknames = ko.observableArray([
+    {nickname: 'Tabs'},
+    {nickname: 'T-man'},
+    {nickname: 'Taboo'}
+  ]);
 
   self.incrementClickCounter = function() {
     self.clickCount(self.clickCount()+1);
@@ -39,6 +44,8 @@ var ViewModel = function() {
       return "Geriatric";
     }
   });
+
+
 }
 
 
