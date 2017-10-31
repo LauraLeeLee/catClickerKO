@@ -1,3 +1,4 @@
+// cat data
 var initialCats = [
     { clickCount: 0,
       name: 'Tabby',
@@ -21,7 +22,7 @@ var initialCats = [
       clickCount: 0,
       nicknames: ['Scaredy','Heart Attack']
     },
-    { imgSrc: "imag/catclicker4.jpg",
+    { imgSrc: "img/catclicker4.jpg",
       name: "MsClawz",
       clickCount: 0,
       nicknames: ['Slash']
@@ -33,8 +34,9 @@ var initialCats = [
     }
   ]
 
-
+//cat constructor function
 var Cat = function(data) {
+  //cat properties personalized
   this.clickCount = ko.observable(data.clickCount);
   this.name = ko.observable(data.name);
   this.imgSrc = ko.observable(data.imgSrc);
@@ -42,33 +44,35 @@ var Cat = function(data) {
   this.catLevel = ko.observable(data.catLevel);
   this.nicknames = ko.observableArray(data.nicknames);
 
+//cat level info, will apply to all cats, is same for all cats
   this.catLevel = ko.computed(function(){
     var title;
     var clicks = this.clickCount();
     if(clicks <5){
-      return "Newborn";
+      title = "Newborn";
     }
     if(clicks>=5 && clicks<=7 ) {
-       return "Infant";
+       title = "Infant";
     }
     if(clicks>7 && clicks<13){
-      return "Child";
+      title = "Child";
     }
     if(clicks>12 && clicks<20){
-      return "Teen";
+      title = "Teen";
     }
     if(clicks>19 && clicks<41){
-      return "Adult";
+      title = "Adult";
     }
     if(clicks>40 && clicks<61){
-      return "MiddleAge";
+      title = "MiddleAge";
     }
     if(clicks>60 && clicks<71){
-      return "Old";
+      title = "Old";
     }
     if(clicks>70 ){
-      return "Geriatric";
+      title = "Geriatric";
     }
+    return title;
   }, this);
 }
 
@@ -82,6 +86,11 @@ var ViewModel = function() {
   });
 
   this.currentCat = ko.observable(this.catList()[0]);
+
+  this.setCurrentCat = function(clickedCat) {
+    self.currentCat(clickedCat);
+    console.log( self.currentCat.name + " was clicked");
+  }
 
   this.incrementClickCounter = function() {
     self.currentCat().clickCount(self.currentCat().clickCount()+1);
