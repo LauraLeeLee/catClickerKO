@@ -1,4 +1,4 @@
-var ViewModel = function() {
+var Cat = function() {
   var self = this;
 
   self.clickCount = ko.observable(0);
@@ -7,10 +7,6 @@ var ViewModel = function() {
   self.imgAttribution = ko.observable('https://www.flickr.com/photos/big');
   self.catLevel = ko.observable('Newborn');
   self.nicknames = ko.observableArray(['Tabs', 'T-man', 'Taboo']);
-
-  self.incrementClickCounter = function() {
-    self.clickCount(self.clickCount()+1);
-  };
 
   self.catLevel = ko.computed(function(){
     var title;
@@ -39,8 +35,16 @@ var ViewModel = function() {
     if(clicks>70 ){
       return "Geriatric";
     }
-  });
+  }, this);
+}
 
+
+var ViewModel = function() {
+   this.currentCat = ko.observable(new Cat());
+
+  this.incrementClickCounter = function() {
+    this.currentCat().clickCount(this.currentCat().clickCount()+1);
+  };
 
 }
 
